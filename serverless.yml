@@ -34,16 +34,17 @@ functions:
           arn:
             Fn::GetAtt: [SQSQueue, Arn]
 #
-Resources:
-    SQSQueue:
-      Type: "AWS::SQS::Queue"
-      Properties:
-        QueueName: "${self:custom.stage}-SQSQueue"
+resources:
+  Resources:
+      SQSQueue:
+        Type: "AWS::SQS::Queue"
+        Properties:
+          QueueName: "${self:custom.stage}-SQSQueue"
 #
-Outputs:
-  SQSUrl:
-    Value:
-      Ref: SQSQueue
-  SQSArn:
-    Value:
-      Fn::GetAtt: [SQSQueue, Arn]
+  Outputs:
+    SQSUrl:
+      Value:
+        Ref: SQSQueue
+    SQSArn:
+      Value:
+        Fn::GetAtt: [SQSQueue, Arn]
