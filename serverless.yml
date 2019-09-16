@@ -2,6 +2,7 @@ service: lambdaToLambda # NOTE: update this with your service name
 
 plugins:
   - serverless-mocha-plugin
+  - serverless-pseudo-parameters
 
 package:
   exclude:
