@@ -14,7 +14,6 @@ describe('Call putsqs', () => {
   it('implement tests here', () => {
     return wrapped.run({}).then((response) => {
       expect(response).to.not.be.empty;
-      expect(response).to.be.equal('ok')
     });
   });
 });
