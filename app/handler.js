@@ -11,6 +11,8 @@ module.exports.putsqs = async (event, context)=>{
         MessageBody: JSON.stringify({key:'value'}),
         QueueUrl: process.env.SQS_URL
     };
+    
+    sqs.sendMessage(params)
 
     return  "ok";
 }
