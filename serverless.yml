@@ -1,0 +1,48 @@
+service: lambdaToLambda # NOTE: update this with your service name
+
+plugins:
+  - serverless-mocha-plugin
+
+package:
+  exclude:
+    - .vscode/**
+    - tests/**
+
+custom:
+  stage: ${opt:stage, 'dev'}
+  version: "1.0"
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  memorySize: 128
+  stage: ${self:custom.stage}
+  region: us-east-1
+  
+functions:
+  putsqs:
+    handler: app/handler.putsqs
+    environment:
+      SQS_URL:
+        Ref: SQSQueue
+#
+  getsqs:
+    handler: app/handler.getsqs
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt: [SQSQueue, Arn]
+#
+Resources:
+    SQSQueue:
+      Type: "AWS::SQS::Queue"
+      Properties:
+        QueueName: "${self:custom.stage}-SQSQueue"
+#
+Outputs:
+  SQSUrl:
+    Value:
+      Ref: SQSQueue
+  SQSArn:
+    Value:
+      Fn::GetAtt: [SQSQueue, Arn]
