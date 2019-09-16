@@ -1,6 +1,6 @@
 const aws =require('aws-sdk');
 
-module.exports.putsqs = async (event, context)=>{
+module.exports.putsqs =  (event, context)=>{
     /**
      * We trigger this lambda manually
      * and put a message to sqs
@@ -15,12 +15,12 @@ module.exports.putsqs = async (event, context)=>{
     sqs.sendMessage(params, (err, data)=>{
         if (err) {
           console.log("Error", err);
+          return err.message
         } else {
           console.log("Success", data.MessageId);
+          return data.MessageId
         }
       });
-
-    return  "ok";
 }
 
 module.exports.getsqs = (event, context) =>{
