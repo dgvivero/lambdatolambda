@@ -11,8 +11,14 @@ module.exports.putsqs = async (event, context)=>{
         MessageBody: JSON.stringify({key:'value'}),
         QueueUrl: process.env.SQS_URL
     };
-    
-    sqs.sendMessage(params)
+
+    sqs.sendMessage(params, (err, data)=>{
+        if (err) {
+          console.log("Error", err);
+        } else {
+          console.log("Success", data.MessageId);
+        }
+      });
 
     return  "ok";
 }
