@@ -19,6 +19,14 @@ provider:
   memorySize: 128
   stage: ${self:custom.stage}
   region: us-east-1
+  iamRoleStatements:
+    #SQS
+    - Effect: "Allow"
+      Action:
+        - "sqs:SendMessage"
+        - "sqs:GetQueueUrl"
+      Resource:
+            Fn::GetAtt: [SQSQueue, Arn]
   
 functions:
   putsqs:
